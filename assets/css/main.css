@@ -1,7 +1,7 @@
 .center{
 
     text-align: center;
-
+    margin: 0 auto;
 }
 
 .align-left{
@@ -64,5 +64,11 @@ nav a.active {
     justify-content: flex-end;
     align-items: center;
     align-content: flex-end;
+
+}
+
+#yt_video_form_wrap{
+
+    width: 300px;
 
 }
