@@ -2,22 +2,88 @@
 
 class Users extends CI_Controller
 {
-    public function show()
-    {
-        $this->load->model('user_model');
 
-        $result = $this->user_model->get_users();
-
-//        foreach ( $result as $object){
-//
-//            echo $object->id . " " . $object->username . "<br />";
-//
-//        }
-
-        $data['welcome'] = "Welcome to the users view";
-        $data['results'] = $result;
+    public function login(){
 
 
-        $this->load->view('users_view', $data);
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]');
+        $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|min_length[4]|matches[password]');
+
+        if($this->form_validation->run() == FALSE){
+
+            $data = array(
+
+                'errors' => validation_errors()
+
+            );
+
+            $this->session->set_flashdata($data);
+
+            redirect('home');
+        } else{
+
+            $username = $this->input->post('username');
+            $password = $this->input->post('password');
+
+
+           $user_id =  $this->user_model->login_user($username, $password);
+
+           if( $user_id ) {
+
+               $user_data = array(
+
+                   'user_id' => $user_id,
+                   'username' => $username,
+                   'logged_in' => true
+
+               );
+
+               $this->session->set_userdata($user_data);
+
+               $this->session->set_flashdata('login_success', 'You are now logged-in');
+
+               redirect('home');
+
+           } else {
+
+               $this->session->set_flashdata('login_failed', 'Sorry you could not log in');
+
+               redirect('home');
+
+           }
+        }
+
+        //echo $_POST['username'];
+        //$this->input->post('username');
+
+
     }
+
+    public function logout(){
+
+        $this->session->sess_destroy();
+
+        redirect('home');
+
+    }
+
+//    public function show()
+//    {
+//        $this->load->model('user_model');
+//
+//        $result = $this->user_model->get_users();
+//
+////        foreach ( $result as $object){
+////
+////            echo $object->id . " " . $object->username . "<br />";
+////
+////        }
+//
+//        $data['welcome'] = "Welcome to the users view";
+//        $data['results'] = $result;
+//
+//
+//        $this->load->view('users_view', $data);
+//    }
 }

@@ -19,7 +19,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-lg-3 center">
+        <div class="col-sm-3 col-lg-3 center" id="login-col">
 
             <?php $this->load->view('users/login_view'); ?>
 
