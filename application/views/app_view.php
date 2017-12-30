@@ -65,6 +65,8 @@
 </section>
 
 
+<?php echo "<p>" . $this->session->flashdata('video_title') . "</p>"; ?>
+
 <section id="video_section">
     <iframe id="myVideo" width="420" height="315"
             src="<?php echo $this->session->flashdata('video_src'); ?>">
