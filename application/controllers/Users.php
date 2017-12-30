@@ -5,6 +5,7 @@ class Users extends CI_Controller
 
     public function login()
     {
+        /** just in case the uri fails to load properly */
 //        if($this->uri->total_segments() === 0){
 //            redirect('users/login','refresh');
 //        }
@@ -38,6 +39,7 @@ class Users extends CI_Controller
 
                     'user_id' => $user_id,
                     'username' => $username,
+                    'password' => $password,
                     'logged_in' => true
 
                 );
@@ -48,9 +50,6 @@ class Users extends CI_Controller
 
 
                 redirect('app/playlist');
-//                $data['main'] = "app_view";
-//
-//                $this->load->view('layouts/main', $data);
 
             } else {
 
@@ -60,9 +59,6 @@ class Users extends CI_Controller
 
             }
         }
-
-        //echo $_POST['username'];
-        //$this->input->post('username');
 
 
     }

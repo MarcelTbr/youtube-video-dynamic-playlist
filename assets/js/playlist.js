@@ -8,7 +8,74 @@ $(document).ready(function () {
     });
     $('#get_songs').on('click', getAllSongs);
     setInterval(getAllSongs, 2000);
+    setInterval(checkTopVideo, 3000);
+
 });
+
+
+function compareVideos(top_video_url, current_video_url) {
+
+    var areEqual = top_video_url.localeCompare(current_video_url) == 0;
+    var isCurrent = top_video_url != current_video_url;
+
+    console.info("areEqual", areEqual);
+    console.info("isCurrent", isCurrent);
+    if (isCurrent && areEqual) {
+
+        console.info("let the video play-through");
+
+
+    } else {
+        var $src = $('#myVideo')[0].src;
+
+        var src_playing = $src.substring(0, $src.length - 11);
+
+        var areEqualLength = top_video_url.localeCompare(src_playing) == 0;
+
+        if (areEqualLength) {
+
+            console.info("let the video play-through, it's just in autoplay");
+
+        } else {
+
+            /**
+             * autoplay only after second check (have to be the same after removing ?autoplay=1 string
+             */
+            $('#myVideo')[0].src = top_video_url + "?autoplay=1";
+
+        }
+
+
+    }
+
+}
+
+
+function checkTopVideo() {
+
+    var $src = $('#myVideo')[0].src;
+    console.info("current_video_url", $src);
+
+    var id = $('.video_row')[1].id;
+
+    console.log("top_video_id: " + id);
+
+    $.ajax({
+        url: 'get_top_video_url/' + id,
+        type: 'POST',
+        success: function (data) {
+            console.info("top_video_url", data);
+
+        }
+    }).then(function (data) {
+
+        compareVideos(data, $src);
+
+    });
+
+
+}
+
 
 function upvoteSong(id) {
 

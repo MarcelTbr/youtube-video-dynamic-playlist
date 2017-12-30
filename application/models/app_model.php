@@ -45,6 +45,21 @@ class app_model extends CI_Model
 
         $array = $query->result();
 
+        /**
+         * Pre-sort videos from top-voted to worst-ranking.
+         */
+
+        function sort_data($a, $b)
+        {
+            if ($a->votes == $b->votes) {
+                return 0;
+            }
+            return ($a->votes > $b->votes) ? -1 : 1;
+        }
+
+        usort($array, 'sort_data');
+
+
         return $array;
 
     }
@@ -69,5 +84,15 @@ class app_model extends CI_Model
         $this->db->where(['id' => $id]);
         $this->db->update('playlist', $data);
 
+    }
+
+    public function get_top_video_url($id)
+    {
+
+        $this->db->where(['id' => $id]);
+        $query = $this->db->get('playlist');
+        $src = $query->row(0)->video_url;
+
+        return $src;
     }
 }

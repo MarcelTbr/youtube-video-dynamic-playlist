@@ -85,4 +85,12 @@ class App extends CI_Controller
         $this->app_model->update_votes('down', $id);
 
     }
+
+    public function get_top_video_url($id)
+    {
+
+        $src = $this->app_model->get_top_video_url($id);
+
+        return $this->output->set_output($src);
+    }
 }
