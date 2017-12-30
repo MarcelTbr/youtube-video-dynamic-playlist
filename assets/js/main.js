@@ -13,8 +13,8 @@ function getAllSongs() {
         type: 'POST',
         success: function (result) {
             var songs = JSON.parse(result);
-            //console.info('result', result);
-            songs.forEach(displaySongs);
+                        //console.info('result', result);
+            //songs.forEach(displaySongs);
 
         }
 
@@ -35,7 +35,7 @@ function makePlaylist(songs) {
 
     function makeRow(song, index){
 
-        var row = $('<div class="video_row"></div>');
+        var row = $('<div class="video_row" id="' + song.id + '"></div>');
         var num = $('<span> ' + ++index + ' </span>');
         row.append(num);
         var title = $('<span class="title">' +  song.video_title + '</span>');
@@ -45,9 +45,9 @@ function makePlaylist(songs) {
         var count_span = $('<span class="count-span"></span>');
         var votes = $('<span>0</span>');
         count_span.append(votes);
-        var up = $('<img class="up" src="../assets/img/arrow_up_48px.svg" ></img>');
+        var up = $('<button ><a href="javascript:upvoteSong(' + song.id + ' )"><img class="up" src="../assets/img/arrow_up_48px.svg" ></a></button>');
         count_span.append(up);
-        var down = $('<img class="down" src="../assets/img/arrow_down_48px.svg" ></span>');
+        var down = $('<button ><a href="javascript:downvoteSong(' + song.id + ' )"><img class="down" src="../assets/img/arrow_down_48px.svg" ></a></button> ');
         count_span.append(down);
         row.append(count_span);
 

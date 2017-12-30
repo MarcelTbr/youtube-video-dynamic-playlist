@@ -132,6 +132,7 @@ nav a.active {
 .down, .up {
     height: 25px;
     width: 26px;
+    cursor: pointer;
 
 }
 
