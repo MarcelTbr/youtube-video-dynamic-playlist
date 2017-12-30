@@ -1,37 +1,71 @@
 $(document).ready(function () {
 
-    // $('input[type="submit"]').on('click', changeVideo);
-    // not useful, it's done by php otherwise it crashes
+   $('#get_songs').on('click', getAllSongs);
 
+   setInterval(getAllSongs, 2000);
 
 });
 
+function getAllSongs() {
+    var $url = 'get_all_songs';
+    $.ajax({
+        url: $url,
+        type: 'POST',
+        success: function (result) {
+            var songs = JSON.parse(result);
+            //console.info('result', result);
+            songs.forEach(displaySongs);
 
-function changeVideo(e) {
+        }
 
-    e.preventDefault();
+    }).done(function (result) {
+        var songs = JSON.parse(result);
+        makePlaylist(songs)
 
-    //reset video title
-    //$('#vid_title').html('');
+    });
+}
 
-    var $yt_url = $('#yt_video').val();
+function displaySongs(item, index) {
 
-    var url_root = 'https://www.youtube.com/embed/';
+    console.info(item.id, item.video_title);
 
-    var yt_video_id = $yt_url.slice(32, $yt_url.length);
+}
 
-    //$('#out').html(url_root+yt_video_id);
-    console.info("url_root", url_root);
-    console.info("yt_video_id", yt_video_id);
+function makePlaylist(songs) {
 
+    function makeRow(song, index){
 
-    /* === AUTOPLAY === */
-    document.getElementById('myVideo').contentWindow.location = (url_root + yt_video_id + '?autoplay=1');
+        var row = $('<div class="video_row"></div>');
+        var num = $('<span> ' + ++index + ' </span>');
+        row.append(num);
+        var title = $('<span class="title">' +  song.video_title + '</span>');
+        row.append(title);
+        // var src = $('<span>' + song.video_url + '</span>');
+        // row.append(src);
+        var count_span = $('<span class="count-span"></span>');
+        var votes = $('<span>0</span>');
+        count_span.append(votes);
+        var up = $('<img class="up" src="../assets/img/arrow_up_48px.svg" ></img>');
+        count_span.append(up);
+        var down = $('<img class="down" src="../assets/img/arrow_down_48px.svg" ></span>');
+        count_span.append(down);
+        row.append(count_span);
 
-    //document.getElementById('myVideo').contentWindow.location = (url_root + yt_video_id);
+        return row;
+    }
 
-    //reset the input field
-    $('#yt_video').val('');
+    function makeHeader() {
+        var row = $('<div class="video_row" id="row_title"><span>Rank</span><span class="title">Title</span><span class="count-span"><span>Votes</span><span>Up || Dw</span></span></div>');
+        return row;
+    }
 
+    $('#playlist').html("");
+    $('#playlist').append(makeHeader());
 
-};
+    songs.forEach(function(song, index){
+
+        $('#playlist').append(makeRow(song, index));
+
+    })
+
+}

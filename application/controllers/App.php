@@ -60,4 +60,14 @@ class App extends CI_Controller
         $this->load->view('layouts/main', $data);
 
     }
+
+    public function get_all_songs(){
+
+
+        $data = $this->app_model->get_all_songs();
+
+
+        return $this->output->set_output(json_encode($data));
+
+    }
 }

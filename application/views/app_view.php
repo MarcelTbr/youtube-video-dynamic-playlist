@@ -63,7 +63,7 @@
 
     <?php echo form_close(); ?>
 </section>
-
+<button id="get_songs" class="btn btn-danger">Get Songs</button>
 
 <?php echo "<p>" . $this->session->flashdata('video_title') . "</p>"; ?>
 
@@ -73,6 +73,9 @@
     </iframe>
 
 </section>
+<section id="playlist">
+    <div class="video_row" id="row_title"><span>Rank</span><span>Title</span><span>Source</span><span class="count-span"><span>Votes</span><span>Up || Dw</span></span></div>
 
+</section>
 </body>
 </html>

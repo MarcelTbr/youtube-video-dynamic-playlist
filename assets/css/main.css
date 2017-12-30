@@ -72,3 +72,71 @@ nav a.active {
     width: 300px;
 
 }
+
+#playlist div.video_row {
+
+    display:flex;
+    flex-direction: row;
+    /*flex-wrap: wrap;*/
+    justify-content: space-between;
+    align-items: center;
+    align-content: space-between;
+    /*width: 300px;*/
+    padding: 10px;
+    background-color: #8fcafe;
+    color:#2a62bc;
+}
+
+#playlist div.video_row:nth-child(even){
+
+    background-color: #2a62bc!important;
+    color: white!important;
+}
+
+
+#playlist .video_row span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*min-width: 40px;*/
+    /*max-width: 350px;*/
+}
+
+#row_title{
+    background-color: white!important;
+    color: #2a62bc!important;
+    overflow: visible!important; /*optional*/
+
+}
+
+#playlist .video_row span.title{
+
+    min-width: 250px;
+}
+
+#playlist .video_row span:first-child {
+
+    min-width: 28px;
+    color:orangered !important;
+}
+.count-span{
+    width: 120px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: space-between;
+
+}
+
+.down, .up {
+    height: 25px;
+    width: 26px;
+
+}
+
+#logo{
+
+    width: 23px;
+    vertical-align: middle;
+}
