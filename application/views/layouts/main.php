@@ -19,12 +19,12 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
 
     <div id="collapse-navbar">
-        <a class="navbar-brand" href="<?php echo base_url(); ?>/home"><img id="logo" src="../assets/img/test_logo_48dp.png">PlayU</a>
-        <a class="nav-link active" href="<?php echo base_url(); ?>/home">Home <span class="sr-only">(current)</span></a>
+        <a class="navbar-brand" href="<?php echo base_url(); ?>home"><img id="logo" src="<?php echo base_url(); ?>/assets/img/test_logo_48dp.png">PlayU</a>
+        <a class="nav-link active" href="<?php echo base_url(); ?>home">Home <span class="sr-only">(current)</span></a>
 
-        <a class="nav-link" href="<?php echo base_url(); ?>/users/register">Signup</a>
+        <a class="nav-link" href="<?php echo base_url(); ?>users/register">Signup</a>
 
-        <a class="nav-link" href="<?php echo base_url(); ?>/app/playlist">App</a>
+        <a class="nav-link" href="<?php echo base_url(); ?>app/playlist">App</a>
     </div>
 
 </nav>
@@ -47,7 +47,7 @@
 
 </div>
 
-<script src="<?php echo base_url(); ?>assets/js/playlist.js"></script>
+
 <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
 
 </body>

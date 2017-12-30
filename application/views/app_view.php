@@ -77,6 +77,6 @@
     <div class="video_row" id="row_title"><span>Rank</span><span>Title</span><span>Source</span><span class="count-span"><span>Votes</span><span>Up || Dw</span></span></div>
 
 </section>
-
+<script src="<?php echo base_url(); ?>assets/js/playlist.js"></script>
 </body>
 </html>

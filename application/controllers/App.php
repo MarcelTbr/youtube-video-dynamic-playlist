@@ -61,13 +61,28 @@ class App extends CI_Controller
 
     }
 
-    public function get_all_songs(){
+    public function get_all_songs()
+    {
 
 
         $data = $this->app_model->get_all_songs();
 
 
         return $this->output->set_output(json_encode($data));
+
+    }
+
+    public function song_up($id)
+    {
+
+        $this->app_model->update_votes('up', $id);
+
+    }
+
+    public function song_down($id)
+    {
+
+        $this->app_model->update_votes('down', $id);
 
     }
 }

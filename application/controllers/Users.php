@@ -5,7 +5,9 @@ class Users extends CI_Controller
 
     public function login()
     {
-
+//        if($this->uri->total_segments() === 0){
+//            redirect('users/login','refresh');
+//        }
 
         $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]');
@@ -44,9 +46,11 @@ class Users extends CI_Controller
 
                 $this->session->set_flashdata('login_success', 'You are now logged-in');
 
-                $data['main'] = "app_view";
 
-                $this->load->view('layouts/main', $data);
+                redirect('app/playlist');
+//                $data['main'] = "app_view";
+//
+//                $this->load->view('layouts/main', $data);
 
             } else {
 

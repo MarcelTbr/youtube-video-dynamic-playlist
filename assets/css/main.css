@@ -1,12 +1,12 @@
-.center{
+.center {
 
     text-align: center;
     margin: 0 auto;
 }
 
-.align-left{
+.align-left {
 
-    text-align: left!important;
+    text-align: left !important;
 
 }
 
@@ -22,7 +22,7 @@
     padding: 50px;
 }
 
-#main-col input{
+#main-col input {
     width: 300px;
 
 }
@@ -46,10 +46,10 @@ nav a.active {
 
 .navbar-brand {
     width: 100px;
-    float:left;
+    float: left;
 }
 
-#collapse-navbar li{
+#collapse-navbar li {
 
     width: 100px;
 }
@@ -57,9 +57,9 @@ nav a.active {
 #collapse-navbar {
 
     width: 400px;
-    float:left;
+    float: left;
     flex-wrap: wrap;
-    display:flex;
+    display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
@@ -67,7 +67,7 @@ nav a.active {
 
 }
 
-#yt_video_form_wrap{
+#yt_video_form_wrap {
 
     width: 300px;
 
@@ -75,7 +75,7 @@ nav a.active {
 
 #playlist div.video_row {
 
-    display:flex;
+    display: flex;
     flex-direction: row;
     /*flex-wrap: wrap;*/
     justify-content: space-between;
@@ -84,15 +84,14 @@ nav a.active {
     /*width: 300px;*/
     padding: 10px;
     background-color: #8fcafe;
-    color:#2a62bc;
+    color: #2a62bc;
 }
 
-#playlist div.video_row:nth-child(even){
+#playlist div.video_row:nth-child(even) {
 
-    background-color: #2a62bc!important;
-    color: white!important;
+    background-color: #2a62bc !important;
+    color: white !important;
 }
-
 
 #playlist .video_row span {
     overflow: hidden;
@@ -101,14 +100,14 @@ nav a.active {
     /*max-width: 350px;*/
 }
 
-#row_title{
-    background-color: white!important;
-    color: #2a62bc!important;
-    overflow: visible!important; /*optional*/
+#row_title {
+    background-color: white !important;
+    color: #2a62bc !important;
+    overflow: visible !important; /*optional*/
 
 }
 
-#playlist .video_row span.title{
+#playlist .video_row span.title {
 
     min-width: 250px;
 }
@@ -116,11 +115,12 @@ nav a.active {
 #playlist .video_row span:first-child {
 
     min-width: 28px;
-    color:orangered !important;
+    color: orangered !important;
 }
-.count-span{
+
+.count-span {
     width: 120px;
-    display:flex;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -136,8 +136,24 @@ nav a.active {
 
 }
 
-#logo{
+#logo {
 
     width: 23px;
     vertical-align: middle;
+}
+
+span.round {
+
+    background-color: white !important;
+    border-radius: 1950px;
+    height: 27.5px;
+    padding-top: 2px;
+
+}
+
+span.square {
+    background-color: #f3f3f3 !important;
+    height: 27.5px;
+    padding-top: 2px;
+    border: 1px solid lightgrey;
 }
