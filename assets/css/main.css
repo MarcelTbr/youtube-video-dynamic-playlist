@@ -162,3 +162,13 @@ span.square {
 
     opacity: 0.7;
 }
+
+#user_video_section iframe{
+
+    display:none;
+}
+
+#info{
+
+    visibility: hidden;
+}

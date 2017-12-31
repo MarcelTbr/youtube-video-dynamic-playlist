@@ -2,7 +2,7 @@
 
 class Users extends CI_Controller
 {
-
+//    TODO make an admin view and a user view conditional
     public function login()
     {
         /** just in case the uri fails to load properly */

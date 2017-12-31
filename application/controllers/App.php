@@ -3,7 +3,6 @@
 class App extends CI_Controller
 {
 
-
     function get_title($url)
     {
         $str = file_get_contents($url);
@@ -24,7 +23,7 @@ class App extends CI_Controller
         if ($this->form_validation->run() == TRUE) {
 
             $url = $this->input->post('yt_url');
-            $video_src = 'https://www.youtube.com/embed/' . substr($url, 32);
+            $video_src = 'https://www.youtube.com/embed/' . substr($url, 32, 11);
 
 
             $video_title = $this->get_title($url);
@@ -54,9 +53,19 @@ class App extends CI_Controller
 
     function playlist()
     {
+        /**
+         * @var $admin if it's the admin go to the back-office
+         *  else display a plain user view without the extra features
+         */
+        $admin = $this->session->userdata('username');
+        $user = $this->session->userdata('password');
+        $login = $this->session->userdata('logged_in');
 
-        $data['main'] = "app_view";
-
+        if (($admin != 'admin') || ($user != 'admin') & !$login) {
+            $data['main'] = "user_view";
+        } else {
+            $data['main'] = "app_view";
+        }
         $this->load->view('layouts/main', $data);
 
     }

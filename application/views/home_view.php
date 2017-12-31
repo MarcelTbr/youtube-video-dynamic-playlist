@@ -20,7 +20,7 @@
 <div class="lighter-text">
 <br/>
 <p>Signup or Login with your account</p>
-<p>Copy-paste a youtube video url (preferrably without the "&ab_channel=..." ending)</p>
+<p>Copy-paste a youtube video url in the text-field</p>
 <p>Click 'Add' and put it in the list with an initial value of '0 votes'</p>
 <p>Upvote your favorite tracks and downvote the boring stuff (and yes, you can have negative votes)</p>
 <p>Feel like a child requesting songs on the radio <3</p>
