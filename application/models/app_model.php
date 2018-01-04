@@ -95,4 +95,47 @@ class app_model extends CI_Model
 
         return $src;
     }
+
+    public function reset_top_video_votes($id){
+
+        $data = array(
+            'votes' => 0
+        );
+        $this->db->where(['id' => $id]);
+        $this->db->update('playlist', $data);
+    }
+
+    public function get_playing_video_id(){
+
+        $this->db->where(['playing' => 1]);
+        $query = $this->db->get('playlist');
+        $id = $query->row(0)->id;
+        return $id;
+    }
+
+
+    public function set_playing_video($id){
+        /**
+         * first reset all playing to 0 (false)
+         */
+        $data = array(
+            'playing' => 0
+        );
+        $this->db->update('playlist', $data);
+
+        $playing = array(
+            'playing' => 1
+        );
+
+        $this->db->where(['id'=>$id]);
+        $this->db->update('playlist', $playing);
+    }
+
+    public function get_current_song(){
+
+
+        $this->db->where(['playing'=> 1]);
+        $query = $this->db->get('playlist');
+        return $query->row(0);
+    }
 }

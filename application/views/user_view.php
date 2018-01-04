@@ -84,7 +84,6 @@
                 src="">
             <!--            --><?php //echo $this->session->flashdata('video_src'); ?>
         </iframe>
-
     </section>
     <section id="playlist">
         <div class="video_row" id="row_title"><span>Rank</span><span>Title</span><span>Source</span><span

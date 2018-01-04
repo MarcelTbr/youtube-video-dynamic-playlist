@@ -23,7 +23,7 @@
 
     </p>
 
-    <h2>Welcome to <b>PlayU</b></h2>
+    <h2>Welcome to <b>PlayU</b> Admin</h2>
     <section class="center" id="yt_video_form_wrap">
         <?php $attributes = array('id' => 'yt_video_form', 'class' => 'form_horizontal'); ?>
         <?php echo form_open('app/video', $attributes); ?>
@@ -69,20 +69,26 @@
             <?php echo "<p class='text-info'>" . $this->session->flashdata('video_title') . "</p>"; ?>
         <?php endif ?>
     </div>
-    <!--        <button id="get_songs" class="btn btn-danger">Get Songs</button>-->
+    <section id="config">
 
-    <section id="video_section">
-        <iframe id="myVideo" width="420" height="315"
-                src="">
-            <!--            --><?php //echo $this->session->flashdata('video_src'); ?>
-        </iframe>
 
+    </section>
+    <section id="controls">
+        <button id="start" class="btn btn-outline-info">Start</button>
+        <button id="stop" class="btn btn-outline-danger">Stop</button>
+        <button id="next" class="btn btn-outline-danger">Next</button>
+    </section>
+    <section id="current-song-display">
+        <br/><span>Current song:</span>
+        <div id="display-current"></div>
+        <br/>
     </section>
     <section id="playlist">
         <div class="video_row" id="row_title"><span>Rank</span><span>Title</span><span>Source</span><span
                     class="count-span"><span>Votes</span><span>Up || Dw</span></span></div>
 
     </section>
+    <script src="http://www.youtube.com/player_api"></script>
 
 <?php else:
     echo "<h2>Please Login or Signup to see this page</h2>"

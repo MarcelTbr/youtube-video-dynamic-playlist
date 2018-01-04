@@ -28,6 +28,9 @@
 
     <?php echo form_close(); ?>
 
+    <br />
+    <div id="player" class="YT-video-API"></div>
+
 <?php else: ?>
     <h2>Login</h2>
 

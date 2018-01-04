@@ -1,3 +1,70 @@
+// create youtube player
+var player;
+function onYouTubePlayerAPIReady() {
+    player = new YT.Player('player', {
+        height: '195',
+        width: '320',
+        videoId: '',
+        playerVars: {
+            'showinfo': 0,
+            'controls': 1,
+            'rel': 0
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+}
+// autoplay video
+function onPlayerReady(event) {
+    event.target.playVideo();
+}
+
+// when video ends
+function onPlayerStateChange(event) {
+
+    video_check_interval = setInterval(function () {
+        checkTopVideo(player)
+    }, 3000);
+    clearInterval(video_check_interval);
+
+
+    if (event.data === 0) {
+
+        ////resetTopVideoVotes();
+
+        $.ajax({
+            url: 'get_playing_video_id',
+            type: 'GET',
+            success: function (data) {
+
+                var id = data;
+                console.info("playing Video ID", id);
+                var promise = resetPlayingVideoVotes(id);
+
+                promise.then(function () {
+                    checkTopVideo(player);
+                    setPlayingVideo();
+
+                });
+            }
+        });
+
+
+    } else if (event.data === 1) {
+
+        console.info("Video is PLAYING")
+        clearInterval(video_check_interval);
+
+    } else {
+        console.info("Waiting");
+    }
+}
+/**
+ * jQuery event handlers and intervals
+ * */
+
 $(document).ready(function () {
 
     $('.up').on('click', this, function () {
@@ -7,54 +74,154 @@ $(document).ready(function () {
         downvoteSong(this)
     });
     $('#get_songs').on('click', getAllSongs);
+    getAllSongs();
     setInterval(getAllSongs, 2000);
-    setInterval(checkTopVideo, 3000);
+    setInterval(displayCurrentSong, 2000);
+
+
+    $('#start').on('click', function () {
+        checkTopVideo(player);
+
+
+        //setInterval(function(){checkTopVideo(player)}, 3000);
+        setTimeout(videoVisible, 3000);
+        setPlayingVideo();
+        player.playVideo();
+    });
+    $('#stop').on('click', function () {
+        player.stopVideo();
+    });
+
+    $('#next').on('click', function () {
+        //changeOptions(player)
+        nextVideo();
+    });
 
 });
 
+/**
+ * functions
+ *
+ */
 
-function compareVideos(top_video_url, current_video_url) {
+function displayCurrentSong(){
 
-    var areEqual = top_video_url.localeCompare(current_video_url) == 0;
-    var isCurrent = top_video_url != current_video_url;
+    $.ajax({
+        url: 'get_current_song',
+        type: 'GET',
+        success: function(data){
 
-    console.info("areEqual", areEqual);
-    console.info("isCurrent", isCurrent);
-    if (isCurrent && areEqual) {
-
-        console.info("let the video play-through");
+            var curr = JSON.parse(data);
 
 
-    } else {
-        var $src = $('#myVideo')[0].src;
-
-        var src_playing = $src.substring(0, $src.length - 11);
-
-        var areEqualLength = top_video_url.localeCompare(src_playing) == 0;
-
-        if (areEqualLength) {
-
-            console.info("let the video play-through, it's just in autoplay");
-
-        } else {
-
-            /**
-             * autoplay only after second check (have to be the same after removing ?autoplay=1 string
-             */
-            $('#myVideo')[0].src = top_video_url + "?autoplay=1";
+            var span = $('<span id="' + curr.id + '" >'+ curr.video_title +'</span>');
+            $('#display-current').html("");
+            $('#display-current').append(span);
 
         }
 
+    })
 
-    }
 
 }
 
 
-function checkTopVideo() {
+function nextVideo() {
 
-    var $src = $('#myVideo')[0].src;
-    console.info("current_video_url", $src);
+    $.ajax({
+        url: 'get_playing_video_id',
+        type: 'GET',
+        success: function (data) {
+
+            var id = data;
+            console.info("playing Video ID", id);
+            resetPlayingVideoVotes(id);
+
+        }
+    });
+
+
+}
+
+function videoVisible() {
+
+    $('.YT-video-API')[0].style.display = 'block';
+
+}
+
+function setPlayingVideo() {
+
+    var id = $('.video_row')[1].id;
+
+    $.ajax({
+        url: 'set_playing_video/' + id,
+        type: 'POST'
+    })
+
+
+}
+
+function resetPlayingVideoVotes(id) {
+
+    return $.ajax({
+        url: 'reset_top_video_votes/' + id,
+        type: 'POST',
+        success: function () {}
+    }).done(function () {
+
+        setTimeout(function() {
+            var id = $('.video_row')[1].id;
+
+            console.log("top_video_id: " + id);
+
+            $.ajax({
+                url: 'get_top_video_url/' + id,
+                type: 'POST',
+                success: function (data) {
+                    console.info("top_video_url", data);
+                    var next_video_id = data.substring(30, data.length);
+
+                    player.loadVideoById(next_video_id, 0, "large");
+                }
+            });
+
+            setPlayingVideo();
+        }, 2500);
+    })
+}
+
+function resetTopVideoVotes() {
+
+    var id = $('.video_row')[1].id;
+
+    $.ajax({
+        url: 'reset_top_video_votes/' + id,
+        type: 'POST'
+    })
+}
+
+function compareVideosIds(top_id, curr_id, player) {
+
+    console.info("top_id", top_id);
+    console.info("curr_id", curr_id);
+    console.info("player.getVideoUrl()", player.getVideoUrl());
+    var areEqual = top_id.localeCompare(curr_id) == 0;
+    var isCurrent = top_id == curr_id;
+
+    if (areEqual && isCurrent) {
+
+        console.info("let the music play")
+    } else {
+
+        player.loadVideoById(top_id, 0, "large");
+
+    }
+}
+
+function checkTopVideo(player) {
+
+    // var $src = $('#myVideo')[0].src;
+    // console.info("current_video_url", $src);
 
     var id = $('.video_row')[1].id;
 
@@ -69,8 +236,13 @@ function checkTopVideo() {
         }
     }).then(function (data) {
 
-        compareVideos(data, $src);
+        //compareVideos(data, $src, player);
 
+        var db_id = data.substring(30, data.length);
+        var vid_url = player.getVideoUrl();
+        var curr_id = vid_url.substring(vid_url.length - 11, vid_url.length);
+
+        compareVideosIds(db_id, curr_id, player);
     });
 
 
@@ -90,9 +262,6 @@ function upvoteSong(id) {
             //console.log("song points: " + data);
 
         }
-    }).done(function () {
-
-
     });
 
 }
@@ -110,9 +279,6 @@ function downvoteSong(id) {
             console.log("song points: " + data);
 
         }
-    }).done(function () {
-
-
     });
 
 }

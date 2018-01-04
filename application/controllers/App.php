@@ -45,8 +45,14 @@ class App extends CI_Controller
         }
 
         //redirect to app view
-        $data['main'] = "app_view";
+        $admin = $this->session->userdata('username');
+        $user = $this->session->userdata('password');
 
+        if (($admin != 'admin') || ($user != 'admin') ) {
+            $data['main'] = "user_view";
+        } else {
+            $data['main'] = "app_view";
+        }
         $this->load->view('layouts/main', $data);
 
     }
@@ -61,7 +67,7 @@ class App extends CI_Controller
         $user = $this->session->userdata('password');
         $login = $this->session->userdata('logged_in');
 
-        if (($admin != 'admin') || ($user != 'admin') & !$login) {
+        if (($admin != 'admin') || ($user != 'admin') ) {
             $data['main'] = "user_view";
         } else {
             $data['main'] = "app_view";
@@ -102,4 +108,30 @@ class App extends CI_Controller
 
         return $this->output->set_output($src);
     }
+
+    public function reset_top_video_votes($id){
+
+        $this->app_model->reset_top_video_votes($id);
+    }
+
+    public function get_playing_video_id(){
+
+        $id = $this->app_model->get_playing_video_id();
+
+        return $this->output->set_output($id);
+    }
+
+    public function set_playing_video($id){
+
+        $this->app_model->set_playing_video($id);
+
+    }
+
+    public function get_current_song(){
+
+        $current = $this->app_model->get_current_song();
+
+        return $this->output->set_output(json_encode($current));
+    }
+
 }

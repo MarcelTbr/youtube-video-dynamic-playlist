@@ -145,16 +145,16 @@ nav a.active {
 span.round {
 
     background-color: white !important;
-    border-radius: 1950px;
+    border-radius: 150px;
     height: 27.5px;
-    padding-top: 2px;
+    line-height: 27.5px;
 
 }
 
 span.square {
     background-color: #f3f3f3 !important;
     height: 27.5px;
-    padding-top: 2px;
+    line-height: 27.5px;
     border: 1px solid lightgrey;
 }
 
@@ -171,4 +171,15 @@ span.square {
 #info{
 
     visibility: hidden;
+}
+
+.YT-video-API{
+    display: none;
+}
+
+#display-current {
+
+    background-color: red!important;
+    color: white!important;
+
 }

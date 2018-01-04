@@ -7,6 +7,7 @@ $(document).ready(function () {
         downvoteSong(this)
     });
     $('#get_songs').on('click', getAllSongs);
+    getAllSongs();
     setInterval(getAllSongs, 2000);
 
     video_check_interval = setInterval(function(){checkTopVideo()}, 3000);
