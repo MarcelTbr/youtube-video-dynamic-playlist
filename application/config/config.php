@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:8888/playU_CI/';
+$config['base_url'] = 'play-u.herokuapp.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ $config['base_url'] = 'http://localhost:8888/playU_CI/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = '/main.php';
 
 /*
 |--------------------------------------------------------------------------
