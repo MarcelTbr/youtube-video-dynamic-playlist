@@ -77,6 +77,8 @@
         <button id="start" class="btn btn-outline-info">Start</button>
         <button id="stop" class="btn btn-outline-danger">Stop</button>
         <button id="next" class="btn btn-outline-danger">Next</button>
+        <button id="random" class="btn btn-outline-info">Random</button>
+        <button id="down1" class="btn btn-outline-danger">Down 1</button>
     </section>
     <section id="current-song-display">
         <br/><span>Current song:</span>

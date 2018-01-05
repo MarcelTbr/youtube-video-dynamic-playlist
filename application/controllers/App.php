@@ -134,4 +134,11 @@ class App extends CI_Controller
         return $this->output->set_output(json_encode($current));
     }
 
+    public function get_number_of_videos(){
+
+        $num_vids = $this->app_model->get_number_of_videos();
+
+        return  $this->output->set_output($num_vids);
+
+    }
 }

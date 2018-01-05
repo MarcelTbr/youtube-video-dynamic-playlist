@@ -138,4 +138,11 @@ class app_model extends CI_Model
         $query = $this->db->get('playlist');
         return $query->row(0);
     }
+
+    public function get_number_of_videos(){
+
+        $result = $this->db->get('playlist');
+
+        return $result->num_rows();
+    }
 }

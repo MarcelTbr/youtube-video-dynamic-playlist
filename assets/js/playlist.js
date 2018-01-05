@@ -29,28 +29,59 @@ function onPlayerStateChange(event) {
     }, 3000);
     clearInterval(video_check_interval);
 
-
+    /** whent video is done playing */
     if (event.data === 0) {
 
-        ////resetTopVideoVotes();
+        var curr_promise = getCurrentSong();
 
-        $.ajax({
-            url: 'get_playing_video_id',
-            type: 'GET',
-            success: function (data) {
+        curr_promise.then(function(data){
 
-                var id = data;
-                console.info("playing Video ID", id);
-                var promise = resetPlayingVideoVotes(id);
+            var song = JSON.parse(data);
 
-                promise.then(function () {
-                    checkTopVideo(player);
-                    setPlayingVideo();
+            /**
+             * if top song votes are 0
+             * get total number of videos on the list
+             * play a random song of the playlist
+             * */
+            if (song.votes == 0) {
 
+                $.ajax({
+                    url: 'get_number_of_videos',
+                    type: 'GET'
+
+                }).done(function (data) {
+
+                    var next_song_index = Math.floor((Math.random() * data) + 1);
+                    console.info("next_song_index", next_song_index);
+                    var next_song_id = $('.video_row')[next_song_index].id;
+
+                    playSongById(next_song_id);
                 });
-            }
-        });
 
+            } else {
+                /**
+                 * play top video
+                 */
+                $.ajax({
+                    url: 'get_playing_video_id',
+                    type: 'GET',
+                    success: function (data) {
+
+                        var id = data;
+                        console.info("playing Video ID", id);
+                        var promise = resetPlayingVideoVotes(id);
+
+                        promise.then(function () {
+                            checkTopVideo(player);
+                            setPlayingVideo();
+
+                        });
+                    }
+                });
+
+            }
+
+        });
 
     } else if (event.data === 1) {
 
@@ -81,9 +112,6 @@ $(document).ready(function () {
 
     $('#start').on('click', function () {
         checkTopVideo(player);
-
-
-        //setInterval(function(){checkTopVideo(player)}, 3000);
         setTimeout(videoVisible, 3000);
         setPlayingVideo();
         player.playVideo();
@@ -93,28 +121,120 @@ $(document).ready(function () {
     });
 
     $('#next').on('click', function () {
-        //changeOptions(player)
+
         nextVideo();
     });
 
+    $('#random').on('click', randomVideo);
+
+    $('#down1').on('click', down1);
+
 });
+
 
 /**
  * functions
  *
  */
 
-function displayCurrentSong(){
+function down1(){
+    var promise = getCurrentSong();
+
+    promise.then(function(data){
+
+        var song = JSON.parse(data);
+        console.info("song.id", song.id);
+        var current_song = document.getElementById(song.id);
+
+        console.info("current_song", current_song);
+        var next_song_id = current_song.nextSibling.id;
+        console.info("next_song_id", next_song_id);
+
+       playSongById( next_song_id );
+
+    })
+
+}
+
+function playSongById(next_song_id) {
+
+    $.ajax({
+        url: 'get_top_video_url/' + next_song_id,
+        type: 'POST'
+
+    }).done(function (data) {
+
+        var next_video_id = data.substring(30, data.length);
+
+        player.loadVideoById(next_video_id, 0, "large");
+        player.playVideo();
+
+        $.ajax({
+            url: 'set_playing_video/' + next_song_id,
+            type: 'POST'
+        })
+
+
+    });
+
+
+}
+function getCurrentSong(){
+    return  $.ajax({
+        url: 'get_current_song',
+        type: 'GET'
+
+    });
+}
+
+function randomVideo() {
+    $.ajax({
+        url: 'get_current_song',
+        type: 'GET'
+
+    }).done(function (data) {
+
+        var song = JSON.parse(data);
+
+
+        if (song.votes == 0) {
+
+            $.ajax({
+                url: 'get_number_of_videos',
+                type: 'GET'
+
+            }).done(function (data) {
+
+                var next_song_index = Math.floor((Math.random() * data) + 1);
+                console.info("next_song_index", next_song_index);
+                var next_song_id = $('.video_row')[next_song_index].id;
+
+                playSongById(next_song_id);
+            });
+
+        } else {
+
+            console.info("Random is not possible. Wait until all votes are 0")
+        }
+
+
+    });
+
+
+}
+
+
+function displayCurrentSong() {
 
     $.ajax({
         url: 'get_current_song',
         type: 'GET',
-        success: function(data){
+        success: function (data) {
 
             var curr = JSON.parse(data);
 
 
-            var span = $('<span id="' + curr.id + '" >'+ curr.video_title +'</span>');
+            var span = $('<span id="curr_' + curr.id + '" >' + curr.video_title + '</span>');
             $('#display-current').html("");
             $('#display-current').append(span);
 
@@ -165,11 +285,10 @@ function resetPlayingVideoVotes(id) {
 
     return $.ajax({
         url: 'reset_top_video_votes/' + id,
-        type: 'POST',
-        success: function () {}
+        type: 'POST'
     }).done(function () {
 
-        setTimeout(function() {
+        setTimeout(function () {
             var id = $('.video_row')[1].id;
 
             console.log("top_video_id: " + id);
