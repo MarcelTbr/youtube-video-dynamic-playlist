@@ -10,6 +10,9 @@ $(document).ready(function () {
     getAllSongs();
     setInterval(getAllSongs, 2000);
 
+    displayCurrentSong();
+    setInterval(displayCurrentSong, 2000);
+
     video_check_interval = setInterval(function(){checkTopVideo()}, 3000);
     clearInterval(video_check_interval);
 
@@ -21,6 +24,27 @@ $(document).ready(function () {
         e.style.visibility = 'hidden';
     });
 });
+
+function displayCurrentSong(){
+
+    $.ajax({
+        url: 'get_current_song',
+        type: 'GET',
+        success: function(data){
+
+            var curr = JSON.parse(data);
+
+
+            var span = $('<span id="' + curr.id + '" >'+ curr.video_title +'</span>');
+            $('#display-current').html("");
+            $('#display-current').append(span);
+
+        }
+
+    })
+
+
+}
 
 function enableSoloMode() {
     console.log("Clear interval Stop Audio");

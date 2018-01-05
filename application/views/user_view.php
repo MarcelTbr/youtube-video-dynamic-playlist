@@ -69,21 +69,10 @@
             <?php echo "<p class='text-info'>" . $this->session->flashdata('video_title') . "</p>"; ?>
         <?php endif ?>
     </div>
-    <section id="user_features">
-        <button id="single_user_enable" class="btn btn-outline-info">Enable Single User Mode</button>
-<!--        <button id="single_user_disable" class="btn btn-outline-danger">Disable Single User Mode</button>-->
-        <button id="stop_audio" class="btn btn-danger">Stop Audio</button>
-        <div id="info">
-
-            <p class="text-info">This enables audio reproduction in your own browser.<br/> Other connected users may change still change the order of tracks</p>
-            <p class="text-danger">Do not enable this if there's and admin playing audio in your office or party</p>
-        </div>
-    </section>
-    <section id="user_video_section">
-        <iframe id="myVideo" width="420" height="315"
-                src="">
-            <!--            --><?php //echo $this->session->flashdata('video_src'); ?>
-        </iframe>
+    <section id="current-song-display">
+        <br/><span>Current song:</span>
+        <div id="display-current"></div>
+        <br/>
     </section>
     <section id="playlist">
         <div class="video_row" id="row_title"><span>Rank</span><span>Title</span><span>Source</span><span

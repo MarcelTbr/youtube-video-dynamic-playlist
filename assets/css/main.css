@@ -12,14 +12,15 @@
 
 #login-col {
 
-    padding: 50px;
+    /*padding: 50px;*/
     padding-top: 65px;
 
 }
 
 #main-col {
 
-    padding: 50px;
+    padding: 5px;
+    /*padding: 50px;*/
 }
 
 #main-col input {

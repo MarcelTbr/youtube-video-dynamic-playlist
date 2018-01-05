@@ -47,7 +47,7 @@
 
 </div>
 
-
+<script src="<?php echo base_url(); ?>assets/js/mq-fix.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
 
 </body>
