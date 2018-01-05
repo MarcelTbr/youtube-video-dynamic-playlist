@@ -35,7 +35,7 @@ $config['base_url'] = 'https://play-u.herokuapp.com/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '/main.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ $config['index_page'] = '/main.php';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'PATH_INFO';
+    $config['uri_protocol']	= 'QUERY_STRING';
 //REQUEST_URI
 /*
 |--------------------------------------------------------------------------
