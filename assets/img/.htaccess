@@ -1,5 +1,5 @@
 <IfModule authz_core_module>
-    Require all denied
+   Allow from all
 </IfModule>
 <IfModule !authz_core_module>
     Options FollowSymLinks
