@@ -324,7 +324,7 @@ function onPlayerError(event){
             downvoteSong(song.id);
             downvoteSong(song.id);
             downvoteSong(song.id);
-            nextVideo();
+            playTopVideo(player);
             setPlayingVideo();
         });
 
