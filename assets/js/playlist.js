@@ -133,7 +133,7 @@ $(document).ready(function () {
         //checkTopVideo(player);
         playTopVideo(player);
         setTimeout(videoVisible, 3000);
-        setPlayingVideo();
+        //setPlayingVideo();
         player.playVideo();
     });
     $('#stop').on('click', stopVideo);
