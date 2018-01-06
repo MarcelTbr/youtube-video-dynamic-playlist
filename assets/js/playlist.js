@@ -305,8 +305,8 @@ function resetPlayingVideoVotes(id) {
         type: 'POST'
     }).done(function () {
 
-        setTimeout(function () {
-            playTopVideo();
+        setTimeout(function (player) {
+            playTopVideo(player);
 
             setPlayingVideo();
         }, 2500);
