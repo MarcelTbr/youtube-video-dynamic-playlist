@@ -8,7 +8,8 @@ function onYouTubePlayerAPIReady() {
         playerVars: {
             'showinfo': 0,
             'controls': 1,
-            'rel': 0
+            'rel': 0,
+            'enablejsapi': 1
         },
         events: {
             'onReady': onPlayerReady,
@@ -348,7 +349,8 @@ function makeYoutubePlayer(){
         playerVars: {
             'showinfo': 0,
             'controls': 1,
-            'rel': 0
+            'rel': 0,
+            'enablejsapi': 1
         },
         events: {
             'onReady': onPlayerReady,
@@ -381,7 +383,9 @@ function nextVideo() {
 function onPlayerError(event){
 
     console.info("There was an error");
-    playTopVideo();
+    //playTopVideo(player);
+    down1();
+    setPlayingVideo();
 
 }
 
