@@ -1,5 +1,5 @@
 // create youtube player
-player;
+var player;
 function onYouTubePlayerAPIReady() {
     player = new YT.Player('player', {
         height: '195',
@@ -97,6 +97,7 @@ function onPlayerStateChange(event) {
  * */
 
 $(document).ready(function () {
+    var player;
 
     $('.up').on('click', this, function () {
         upvoteSong(this)
@@ -111,6 +112,8 @@ $(document).ready(function () {
 
 
     $('#start').on('click', function () {
+
+        player = makeYoutubePlayer();
         checkTopVideo(player);
         //playTopVideo(player);
         setTimeout(videoVisible, 3000);
@@ -245,7 +248,25 @@ function displayCurrentSong() {
 
 
 }
+function makeYoutubePlayer(){
 
+    var player = new YT.Player('player', {
+        height: '195',
+        width: '100%',
+        videoId: '',
+        playerVars: {
+            'showinfo': 0,
+            'controls': 1,
+            'rel': 0
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+
+    return player;
+}
 
 function nextVideo() {
 
