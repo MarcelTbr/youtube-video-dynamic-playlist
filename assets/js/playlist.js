@@ -23,7 +23,7 @@ function onPlayerReady(event) {
     event.target.playVideo();
 }
 
-function stopVideo(){
+function stopVideo() {
     player.stopVideo();
 
 }
@@ -42,7 +42,7 @@ function onPlayerStateChange(event) {
         var id = $('.video_row')[1].id;
         var song_promise = getSongById(id);
 
-        song_promise.then(function(data){
+        song_promise.then(function (data) {
 
             var song = JSON.parse(data);
 
@@ -155,10 +155,10 @@ $(document).ready(function () {
  *
  */
 
-function down1(){
+function down1() {
     var promise = getCurrentSong();
 
-    promise.then(function(data){
+    promise.then(function (data) {
 
         var song = JSON.parse(data);
         console.info("song.id", song.id);
@@ -168,7 +168,7 @@ function down1(){
         var next_song_id = current_song.nextSibling.id;
         console.info("next_song_id", next_song_id);
 
-       playSongById( next_song_id );
+        playSongById(next_song_id);
 
     })
 
@@ -198,7 +198,7 @@ function playSongById(next_song_id) {
 
 }
 
-function getSongById(id){
+function getSongById(id) {
 
     return $.ajax({
         url: 'get_song_by_id/' + id,
@@ -206,8 +206,8 @@ function getSongById(id){
     })
 }
 
-function getCurrentSong(){
-    return  $.ajax({
+function getCurrentSong() {
+    return $.ajax({
         url: 'get_current_song',
         type: 'GET'
 
@@ -271,7 +271,7 @@ function displayCurrentSong() {
 
 
 }
-function makeYoutubePlayer(){
+function makeYoutubePlayer() {
 
     var player = new YT.Player('player', {
         height: '195',
@@ -311,30 +311,31 @@ function nextVideo() {
 }
 
 //when error
-function onPlayerError(event){
+function onPlayerError(event) {
 
     console.info("There was an error", event.data);
-    if(event.data == 150){
+    if (event.data == 150) {
 
-        console.info( "Error 150. Owner does not allow embedded videos");
+        console.info("Error 150. Owner does not allow embedded videos");
         var song_promise = getCurrentSong();
-        song_promise.then(function(data){
+        song_promise.then(function (data) {
 
             var song = JSON.parse(data);
             downvoteSong(song.id);
-            playTopVideo(player);
-            setPlayingVideo();
+            setTimeout(function () {
+                playTopVideo(player);
+                setPlayingVideo();
+            }, 2500);
         });
 
 
-
-    } else if( event.data == 2) {
+    } else if (event.data == 2) {
 
         console.info("Error 2. Cannot load the video");
         stopVideo();
         playTopVideo(player);
         setPlayingVideo();
-    }else{
+    } else {
         playTopVideo(player);
         stopVideo();
         setPlayingVideo();
@@ -457,11 +458,7 @@ function upvoteSong(id) {
     /** song_up/id **/
     $.ajax({
         url: 'song_up/' + id,
-        type: 'POST',
-        success: function () {
-            //console.log("song points: " + data);
-
-        }
+        type: 'POST'
     });
 
 }
@@ -474,11 +471,7 @@ function downvoteSong(id) {
     /** song_down/id **/
     $.ajax({
         url: 'song_down/' + id,
-        type: 'POST',
-        success: function (data) {
-            console.log("song points: " + data);
-
-        }
+        type: 'POST'
     });
 
 }
