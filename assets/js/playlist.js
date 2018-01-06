@@ -98,7 +98,82 @@ function onPlayerStateChange(event) {
 
 $(document).ready(function () {
     var player;
+    // autoplay video
+    function onPlayerReady(event) {
+        event.target.playVideo();
+    }
 
+// when video ends
+    function onPlayerStateChange(event) {
+
+        video_check_interval = setInterval(function () {
+            checkTopVideo(player)
+        }, 3000);
+        clearInterval(video_check_interval);
+
+        /** whent video is done playing */
+        if (event.data === 0) {
+
+            var curr_promise = getCurrentSong();
+
+            curr_promise.then(function(data){
+
+                var song = JSON.parse(data);
+
+                /**
+                 * if top song votes are 0
+                 * get total number of videos on the list
+                 * play a random song of the playlist
+                 * */
+                if (song.votes == 0) {
+
+                    $.ajax({
+                        url: 'get_number_of_videos',
+                        type: 'GET'
+
+                    }).done(function (data) {
+
+                        var next_song_index = Math.floor((Math.random() * data) + 1);
+                        console.info("next_song_index", next_song_index);
+                        var next_song_id = $('.video_row')[next_song_index].id;
+
+                        playSongById(next_song_id);
+                    });
+
+                } else {
+                    /**
+                     * play top video
+                     */
+                    $.ajax({
+                        url: 'get_playing_video_id',
+                        type: 'GET',
+                        success: function (data) {
+
+                            var id = data;
+                            console.info("playing Video ID", id);
+                            var promise = resetPlayingVideoVotes(id);
+
+                            promise.then(function () {
+                                checkTopVideo(player);
+                                setPlayingVideo();
+
+                            });
+                        }
+                    });
+
+                }
+
+            });
+
+        } else if (event.data === 1) {
+
+            console.info("Video is PLAYING")
+            clearInterval(video_check_interval);
+
+        } else {
+            console.info("Waiting");
+        }
+    }
     $('.up').on('click', this, function () {
         upvoteSong(this)
     });
