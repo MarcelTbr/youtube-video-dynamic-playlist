@@ -114,7 +114,7 @@ class Users extends CI_Controller
 
                 $this->session->set_flashdata('login_success', 'You are now logged-in');
 
-                $data['main'] = "app_view";
+                $data['main'] = "user_view";
 
                 $this->load->view('layouts/main', $data);
 

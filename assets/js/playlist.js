@@ -93,7 +93,7 @@ function onPlayerStateChange(event) {
 
     } else if (event.data === 1) {
 
-        console.info("Video is PLAYING")
+        console.info("Video is PLAYING");
         clearInterval(video_check_interval);
 
     } else {
