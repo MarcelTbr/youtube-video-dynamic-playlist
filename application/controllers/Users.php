@@ -114,15 +114,15 @@ class Users extends CI_Controller
 
                 $this->session->set_flashdata('login_success', 'You are now logged-in');
 
-                $data['main'] = "user_view";
-
-                $this->load->view('layouts/main', $data);
+                redirect('app/playlist');
 
             } else {
 
                 $this->session->set_flashdata('signup_failed', 'Sorry this username is in use. Try another one.');
 
-               redirect('app/playlist');
+                $data['main'] = "signup_view";
+
+                $this->load->view('layouts/main', $data);
             }
         }
 
