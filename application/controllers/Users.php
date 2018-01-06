@@ -24,7 +24,7 @@ class Users extends CI_Controller
 
             $this->session->set_flashdata($data);
 
-            redirect('home');
+            redirect('users/register');
         } else {
 
             $username = $this->input->post('username');
