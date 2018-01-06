@@ -96,7 +96,7 @@ function onPlayerStateChange(event) {
  * jQuery event handlers and intervals
  * */
 
-$(document).ready(function (player) {
+$(document).ready(function () {
 
     $('.up').on('click', this, function () {
         upvoteSong(this)
@@ -111,7 +111,8 @@ $(document).ready(function (player) {
 
 
     $('#start').on('click', function (player) {
-        checkTopVideo(player);
+        // checkTopVideo(player);
+        playTopVideo();
         setTimeout(videoVisible, 3000);
         setPlayingVideo();
         player.playVideo();
@@ -281,6 +282,22 @@ function setPlayingVideo() {
 
 }
 
+var playTopVideo = function () {
+    var id = $('.video_row')[1].id;
+
+    console.log("top_video_id: " + id);
+
+    $.ajax({
+        url: 'get_top_video_url/' + id,
+        type: 'POST',
+        success: function (data) {
+            console.info("top_video_url", data);
+            var next_video_id = data.substring(30, data.length);
+
+            player.loadVideoById(next_video_id, 0, "large");
+        }
+    });
+};
 function resetPlayingVideoVotes(id) {
 
     return $.ajax({
@@ -289,20 +306,7 @@ function resetPlayingVideoVotes(id) {
     }).done(function () {
 
         setTimeout(function () {
-            var id = $('.video_row')[1].id;
-
-            console.log("top_video_id: " + id);
-
-            $.ajax({
-                url: 'get_top_video_url/' + id,
-                type: 'POST',
-                success: function (data) {
-                    console.info("top_video_url", data);
-                    var next_video_id = data.substring(30, data.length);
-
-                    player.loadVideoById(next_video_id, 0, "large");
-                }
-            });
+            playTopVideo();
 
             setPlayingVideo();
         }, 2500);
