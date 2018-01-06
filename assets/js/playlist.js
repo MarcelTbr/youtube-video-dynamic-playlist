@@ -96,7 +96,7 @@ function onPlayerStateChange(event) {
  * jQuery event handlers and intervals
  * */
 
-$(document).ready(function () {
+$(document).ready(function (player) {
 
     $('.up').on('click', this, function () {
         upvoteSong(this)
