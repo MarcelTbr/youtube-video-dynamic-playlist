@@ -25,7 +25,7 @@ function onPlayerReady(event) {
 function onPlayerStateChange(event) {
 
     video_check_interval = setInterval(function () {
-        checkTopVideo(event.target);  //player
+        checkTopVideo(player);
     }, 3000);
     clearInterval(video_check_interval);
 
@@ -122,7 +122,7 @@ $(document).ready(function () {
     function onPlayerStateChange(event) {
 
         video_check_interval = setInterval(function () {
-            checkTopVideo(event.target);  //player
+            checkTopVideo(player);
         }, 3000);
         clearInterval(video_check_interval);
 
