@@ -90,7 +90,7 @@
                     class="count-span"><span>Votes</span><span>Up || Dw</span></span></div>
 
     </section>
-    <script src="https://www.youtube.com/player_api"></script>
+<!--    <script src="https://www.youtube.com/player_api"></script>-->
 
 <?php else:
     echo "<h2>Please Login or Signup to see this page</h2>"
