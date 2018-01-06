@@ -400,10 +400,16 @@ function nextVideo() {
 function onPlayerError(event){
 
     console.info("There was an error");
-    playTopVideo(player);
-    stopVideo();
-    setPlayingVideo();
 
+    if(event.data == 101){
+        down1();
+        setPlayingVideo();
+
+    } else {
+        playTopVideo(player);
+        stopVideo();
+        setPlayingVideo();
+    }
 }
 
 function videoVisible() {
@@ -439,7 +445,7 @@ function playTopVideo(player) {
             player.loadVideoById(next_video_id, 0, "large");
         }
     });
-};
+}
 function resetPlayingVideoVotes(id) {
 
     return $.ajax({
