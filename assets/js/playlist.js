@@ -120,7 +120,7 @@ $(document).ready(function () {
         setPlayingVideo();
         player.playVideo();
     });
-    $('#stop').on('click', function (player) {
+    $('#stop').on('click', function () {
         player.stopVideo();
     });
 
@@ -303,7 +303,7 @@ function setPlayingVideo() {
 
 }
 
-var playTopVideo = function (player) {
+function playTopVideo(player) {
     var id = $('.video_row')[1].id;
 
     console.log("top_video_id: " + id);
