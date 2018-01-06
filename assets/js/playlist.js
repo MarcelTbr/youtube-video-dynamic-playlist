@@ -399,8 +399,7 @@ function nextVideo() {
 //when error
 function onPlayerError(event){
 
-    console.info("There was an error");
-
+    console.info("There was an error", event.data);
     if(event.data == 101){
 
         console.info( "Error 101. Owner does not allow embedded videos");
