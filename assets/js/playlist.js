@@ -21,12 +21,6 @@ function onPlayerReady(event) {
     event.target.playVideo();
 }
 
-//when error
-function onPlayerError(event){
-
-    nextVideo();
-
-}
 // when video ends
 function onPlayerStateChange(event) {
 
@@ -119,6 +113,7 @@ $(document).ready(function () {
 
     function onPlayerError(event){
 
+        console.info("Sorry, there was an error");
         nextVideo();
 
     }
@@ -378,6 +373,14 @@ function nextVideo() {
         }
     });
 
+
+}
+
+//when error
+function onPlayerError(event){
+
+    console.info("There was an error");
+    nextVideo();
 
 }
 
