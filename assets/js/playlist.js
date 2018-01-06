@@ -115,92 +115,92 @@ $(document).ready(function () {
 
     var player;
     // autoplay video
-    function onPlayerReady(event) {
-        event.target.playVideo();
-    }
-
-    function onPlayerError(event){
-
-        console.info("Sorry, there was an error");
-        nextVideo();
-
-    }
-
-// when video ends
-    function onPlayerStateChange(event) {
-
-        video_check_interval = setInterval(function () {
-            checkTopVideo(player);
-        }, 3000);
-        clearInterval(video_check_interval);
-
-        /** whent video is done playing */
-        if (event.data === 0) {
-
-            //var curr_promise = getCurrentSong();
-            var id = $('.video_row')[1].id;
-            var song_promise = getSongById(id);
-
-            song_promise.then(function(data){
-
-                var song = JSON.parse(data);
-
-                /**
-                 * if top song votes are 0
-                 * get total number of videos on the list
-                 * play a random song of the playlist
-                 * */
-                if (song.votes == 0) {
-
-                    $.ajax({
-                        url: 'get_number_of_videos',
-                        type: 'GET'
-
-                    }).done(function (data) {
-
-                        var next_song_index = Math.floor((Math.random() * data) + 1);
-                        console.info("next_song_index", next_song_index);
-                        var next_song_id = $('.video_row')[next_song_index].id;
-
-                        playSongById(next_song_id);
-                    });
-
-                } else {
-                    /**
-                     * play top video
-                     */
-                    playTopVideo(player);
-                    setPlayingVideo();
-                    // $.ajax({
-                    //     url: 'get_playing_video_id',
-                    //     type: 'GET',
-                    //     success: function (data) {
-                    //
-                    //         var id = data;
-                    //         console.info("playing Video ID", id);
-                    //         var promise = resetPlayingVideoVotes(id);
-                    //
-                    //         promise.then(function () {
-                    //             checkTopVideo(player);
-                    //             setPlayingVideo();
-                    //
-                    //         });
-                    //     }
-                    // });
-
-                }
-
-            });
-
-        } else if (event.data === 1) {
-
-            console.info("Video is PLAYING")
-            clearInterval(video_check_interval);
-
-        } else {
-            console.info("Waiting");
-        }
-    }
+    // function onPlayerReady(event) {
+    //     event.target.playVideo();
+    // }
+    //
+    // function onPlayerError(event){
+    //
+    //     console.info("Sorry, there was an error");
+    //     nextVideo();
+    //
+    // }
+    //
+    // // when video ends
+    // function onPlayerStateChange(event) {
+    //
+    //     video_check_interval = setInterval(function () {
+    //         checkTopVideo(player);
+    //     }, 3000);
+    //     clearInterval(video_check_interval);
+    //
+    //     /** whent video is done playing */
+    //     if (event.data === 0) {
+    //
+    //         //var curr_promise = getCurrentSong();
+    //         var id = $('.video_row')[1].id;
+    //         var song_promise = getSongById(id);
+    //
+    //         song_promise.then(function(data){
+    //
+    //             var song = JSON.parse(data);
+    //
+    //             /**
+    //              * if top song votes are 0
+    //              * get total number of videos on the list
+    //              * play a random song of the playlist
+    //              * */
+    //             if (song.votes == 0) {
+    //
+    //                 $.ajax({
+    //                     url: 'get_number_of_videos',
+    //                     type: 'GET'
+    //
+    //                 }).done(function (data) {
+    //
+    //                     var next_song_index = Math.floor((Math.random() * data) + 1);
+    //                     console.info("next_song_index", next_song_index);
+    //                     var next_song_id = $('.video_row')[next_song_index].id;
+    //
+    //                     playSongById(next_song_id);
+    //                 });
+    //
+    //             } else {
+    //                 /**
+    //                  * play top video
+    //                  */
+    //                 playTopVideo(player);
+    //                 setPlayingVideo();
+    //                 // $.ajax({
+    //                 //     url: 'get_playing_video_id',
+    //                 //     type: 'GET',
+    //                 //     success: function (data) {
+    //                 //
+    //                 //         var id = data;
+    //                 //         console.info("playing Video ID", id);
+    //                 //         var promise = resetPlayingVideoVotes(id);
+    //                 //
+    //                 //         promise.then(function () {
+    //                 //             checkTopVideo(player);
+    //                 //             setPlayingVideo();
+    //                 //
+    //                 //         });
+    //                 //     }
+    //                 // });
+    //
+    //             }
+    //
+    //         });
+    //
+    //     } else if (event.data === 1) {
+    //
+    //         console.info("Video is PLAYING")
+    //         clearInterval(video_check_interval);
+    //
+    //     } else {
+    //         console.info("Waiting");
+    //     }
+    // }
     $('.up').on('click', this, function () {
         upvoteSong(this)
     });
@@ -400,13 +400,18 @@ function nextVideo() {
 function onPlayerError(event){
 
     console.info("There was an error", event.data);
-    if(event.data == 101){
+    if(event.data == 150){
 
-        console.info( "Error 101. Owner does not allow embedded videos");
-        down1();
+        console.info( "Error 150. Owner does not allow embedded videos");
+        nextVideo();
         setPlayingVideo();
 
-    } else {
+    } else if( event.data == 2) {
+
+        console.info("Error 2. Cannot load the video");
+        stopVideo();
+
+    }else{
         playTopVideo(player);
         stopVideo();
         setPlayingVideo();
