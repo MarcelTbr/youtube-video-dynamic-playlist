@@ -141,4 +141,11 @@ class App extends CI_Controller
         return  $this->output->set_output($num_vids);
 
     }
+
+    public function get_song_by_id($id){
+
+        $song = $this->app_model->get_song_by_id($id);
+
+        $this->output->set_output(json_encode($song));
+    }
 }

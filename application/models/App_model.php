@@ -150,4 +150,11 @@ class app_model extends CI_Model
 
         return $result->num_rows();
     }
+
+    public function get_song_by_id($id){
+
+        $this->db->where(['id'=>$id]);
+        $query = $this->db->get('playlist');
+        return $query->row(0);
+    }
 }

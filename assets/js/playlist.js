@@ -135,9 +135,11 @@ $(document).ready(function () {
         /** whent video is done playing */
         if (event.data === 0) {
 
-            var curr_promise = getCurrentSong();
+            //var curr_promise = getCurrentSong();
+            var id = $('.video_row')[1].id;
+            var song_promise = getSongById(id);
 
-            curr_promise.then(function(data){
+            song_promise.then(function(data){
 
                 var song = JSON.parse(data);
 
@@ -165,22 +167,24 @@ $(document).ready(function () {
                     /**
                      * play top video
                      */
-                    $.ajax({
-                        url: 'get_playing_video_id',
-                        type: 'GET',
-                        success: function (data) {
-
-                            var id = data;
-                            console.info("playing Video ID", id);
-                            var promise = resetPlayingVideoVotes(id);
-
-                            promise.then(function () {
-                                checkTopVideo(player);
-                                setPlayingVideo();
-
-                            });
-                        }
-                    });
+                    playTopVideo(player);
+                    setPlayingVideo();
+                    // $.ajax({
+                    //     url: 'get_playing_video_id',
+                    //     type: 'GET',
+                    //     success: function (data) {
+                    //
+                    //         var id = data;
+                    //         console.info("playing Video ID", id);
+                    //         var promise = resetPlayingVideoVotes(id);
+                    //
+                    //         promise.then(function () {
+                    //             checkTopVideo(player);
+                    //             setPlayingVideo();
+                    //
+                    //         });
+                    //     }
+                    // });
 
                 }
 
@@ -277,6 +281,15 @@ function playSongById(next_song_id) {
 
 
 }
+
+function getSongById(id){
+
+    return $.ajax({
+        url: 'get_song_by_id/' + id,
+        type: 'POST'
+    })
+}
+
 function getCurrentSong(){
     return  $.ajax({
         url: 'get_current_song',
