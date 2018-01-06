@@ -1,5 +1,5 @@
 // create youtube player
-player;
+var player;
 function onYouTubePlayerAPIReady() {
     player = new YT.Player('player', {
         height: '195',
@@ -110,14 +110,14 @@ $(document).ready(function () {
     setInterval(displayCurrentSong, 2000);
 
 
-    $('#start').on('click', function (player) {
-        // checkTopVideo(player);
-        playTopVideo(player);
+    $('#start').on('click', function () {
+        checkTopVideo(player);
+        //playTopVideo(player);
         setTimeout(videoVisible, 3000);
         setPlayingVideo();
         player.playVideo();
     });
-    $('#stop').on('click', function (player) {
+    $('#stop').on('click', function () {
         player.stopVideo();
     });
 
@@ -305,7 +305,7 @@ function resetPlayingVideoVotes(id) {
         type: 'POST'
     }).done(function () {
 
-        setTimeout(function (player) {
+        setTimeout(function () {
             playTopVideo(player);
 
             setPlayingVideo();
