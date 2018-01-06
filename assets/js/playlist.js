@@ -322,8 +322,6 @@ function onPlayerError(event){
 
             var song = JSON.parse(data);
             downvoteSong(song.id);
-            downvoteSong(song.id);
-            downvoteSong(song.id);
             playTopVideo(player);
             setPlayingVideo();
         });
