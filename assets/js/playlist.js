@@ -1,5 +1,5 @@
 // create youtube player
-var player;
+player;
 function onYouTubePlayerAPIReady() {
     player = new YT.Player('player', {
         height: '195',
