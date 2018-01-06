@@ -381,7 +381,7 @@ function nextVideo() {
 function onPlayerError(event){
 
     console.info("There was an error");
-    nextVideo();
+    playTopVideo();
 
 }
 
