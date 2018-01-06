@@ -23,7 +23,7 @@ class App extends CI_Controller
         if ($this->form_validation->run() == TRUE) {
 
             $url = $this->input->post('yt_url');
-            $start = strrpos($url, "=") + 1;
+            $start = strpos($url, "=") + 1;
 
             $video_src = 'https://www.youtube.com/embed/' . substr($url, $start, 11);
 
