@@ -102,7 +102,7 @@ class Users extends CI_Controller
                 $this->user_model->create_user();
 
 
-//                log the user in
+                //log the user in
                 $signup_data = array(
 
                     'username' => $username,
@@ -122,9 +122,7 @@ class Users extends CI_Controller
 
                 $this->session->set_flashdata('signup_failed', 'Sorry this username is in use. Try another one.');
 
-                $data['main'] = "signup_view";
-
-                $this->load->view('layouts/main', $data);
+               redirect('app/playlist');
             }
         }
 
