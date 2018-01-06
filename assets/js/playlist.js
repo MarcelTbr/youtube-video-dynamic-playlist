@@ -25,7 +25,7 @@ function onPlayerReady(event) {
 function onPlayerStateChange(event) {
 
     video_check_interval = setInterval(function () {
-        checkTopVideo(player)
+        checkTopVideo(event.target);  //player
     }, 3000);
     clearInterval(video_check_interval);
 
@@ -111,11 +111,17 @@ $(document).ready(function () {
         event.target.playVideo();
     }
 
+    function onPlayerError(event){
+
+        nextVideo();
+
+    }
+
 // when video ends
     function onPlayerStateChange(event) {
 
         video_check_interval = setInterval(function () {
-            checkTopVideo(player)
+            checkTopVideo(event.target);  //player
         }, 3000);
         clearInterval(video_check_interval);
 
@@ -344,7 +350,8 @@ function makeYoutubePlayer(){
         },
         events: {
             'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            'onStateChange': onPlayerStateChange,
+            'onError': onPlayerError
         }
     });
 
