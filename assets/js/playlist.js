@@ -38,9 +38,11 @@ function onPlayerStateChange(event) {
     /** whent video is done playing */
     if (event.data === 0) {
 
-        var curr_promise = getCurrentSong();
+        //var curr_promise = getCurrentSong();
+        var id = $('.video_row')[1].id;
+        var song_promise = getSongById(id);
 
-        curr_promise.then(function(data){
+        song_promise.then(function(data){
 
             var song = JSON.parse(data);
 
