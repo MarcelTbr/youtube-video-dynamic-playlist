@@ -21,6 +21,12 @@ function onPlayerReady(event) {
     event.target.playVideo();
 }
 
+//when error
+function onPlayerError(event){
+
+    nextVideo();
+
+}
 // when video ends
 function onPlayerStateChange(event) {
 
