@@ -110,13 +110,13 @@ $(document).ready(function (player) {
     setInterval(displayCurrentSong, 2000);
 
 
-    $('#start').on('click', function () {
+    $('#start').on('click', function (player) {
         checkTopVideo(player);
         setTimeout(videoVisible, 3000);
         setPlayingVideo();
         player.playVideo();
     });
-    $('#stop').on('click', function () {
+    $('#stop').on('click', function (player) {
         player.stopVideo();
     });
 
