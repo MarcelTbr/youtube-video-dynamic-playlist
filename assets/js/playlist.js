@@ -212,7 +212,7 @@ $(document).ready(function () {
         setPlayingVideo();
         player.playVideo();
     });
-    $('#stop').on('click', function () {
+    $('#stop').on('click', function (player) {
         player.stopVideo();
     });
 
@@ -385,6 +385,7 @@ function onPlayerError(event){
     console.info("There was an error");
     //playTopVideo(player);
     down1();
+    player.stopVideo();
     setPlayingVideo();
 
 }
