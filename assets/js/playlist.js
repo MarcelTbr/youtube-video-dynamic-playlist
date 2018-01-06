@@ -23,6 +23,10 @@ function onPlayerReady(event) {
     event.target.playVideo();
 }
 
+function stopVideo(){
+    player.stopVideo();
+
+}
 // when video ends
 function onPlayerStateChange(event) {
 
@@ -212,9 +216,7 @@ $(document).ready(function () {
         setPlayingVideo();
         player.playVideo();
     });
-    $('#stop').on('click', function (player) {
-        player.stopVideo();
-    });
+    $('#stop').on('click', stopVideo);
 
     $('#next').on('click', function () {
 
@@ -385,7 +387,7 @@ function onPlayerError(event){
     console.info("There was an error");
     //playTopVideo(player);
     down1();
-    player.stopVideo();
+    stopVideo();
     setPlayingVideo();
 
 }
