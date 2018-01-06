@@ -114,13 +114,13 @@ $(document).ready(function () {
     $('#start').on('click', function () {
 
         player = makeYoutubePlayer();
-        checkTopVideo(player);
-        //playTopVideo(player);
+        //checkTopVideo(player);
+        playTopVideo(player);
         setTimeout(videoVisible, 3000);
         setPlayingVideo();
         player.playVideo();
     });
-    $('#stop').on('click', function () {
+    $('#stop').on('click', function (player) {
         player.stopVideo();
     });
 
