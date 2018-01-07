@@ -157,4 +157,16 @@ class app_model extends CI_Model
         $query = $this->db->get('playlist');
         return $query->row(0);
     }
+
+    public function reset_playlist(){
+
+//        $query = $this->db->get('playlist');
+//
+//        $rows = $query->result_array();
+        $this->db->where('id !=', 0);
+        $this->db->delete('playlist');
+
+
+    }
+
 }

@@ -150,4 +150,9 @@ class App extends CI_Controller
 
         $this->output->set_output(json_encode($song));
     }
+
+    public function reset_playlist(){
+
+        $this->app_model->reset_playlist();
+    }
 }

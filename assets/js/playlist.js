@@ -147,6 +147,7 @@ $(document).ready(function () {
 
     $('#down1').on('click', down1);
 
+    $('#reset').on('click', resetPlaylist);
 });
 
 
@@ -154,6 +155,27 @@ $(document).ready(function () {
  * functions
  *
  */
+
+function resetPlaylist(){
+
+    var result = confirm("This will erase all tracks from your playlist. Are you sure you want to do it?");
+
+    if (result){
+
+        $.ajax({
+            url: 'reset_playlist',
+            type: 'POST'
+        });
+
+        //reset user info
+        $('#display-current').html("");
+        $('.alert-danger')[0].innerHTML = "";
+
+        //inform user
+        $('#just-added').html("<p>Playlist deleted. You can start a new session.</p>");
+    }
+
+}
 
 function down1() {
     var promise = getCurrentSong();

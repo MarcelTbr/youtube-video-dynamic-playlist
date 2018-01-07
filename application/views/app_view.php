@@ -79,6 +79,8 @@
         <button id="next" class="btn btn-outline-danger">Next</button>
         <button id="random" class="btn btn-outline-info">Random</button>
         <button id="down1" class="btn btn-outline-danger">Down 1</button>
+        <br /><br />
+        <button id="reset" class="btn btn-danger">Reset Playlist</button>
     </section>
     <section id="current-song-display">
         <br/><span>Current song:</span>
